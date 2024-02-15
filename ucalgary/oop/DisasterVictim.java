@@ -1,7 +1,11 @@
 package edu.ucalgary.oop;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Date;
 
 public class DisasterVictim {
     private static int nextAssignedSocialID = 0;
@@ -32,7 +36,7 @@ public class DisasterVictim {
             throw new IllegalArgumentException("Date must be in YYYY-MM-DD format.");
         }
         return date;
-    }
+    }    
 
     public String getFirstName() {
         return firstName;
@@ -55,8 +59,12 @@ public class DisasterVictim {
     }
 
     public void setDateOfBirth(String dateOfBirth) {
+        if (!dateOfBirth.matches("\\d{4}-\\d{2}-\\d{2}")) {
+            throw new IllegalArgumentException("Date of birth must be in YYYY-MM-DD format.");
+        }
         this.dateOfBirth = dateOfBirth;
     }
+    
 
     public String getGender() {
         return gender;
@@ -78,24 +86,32 @@ public class DisasterVictim {
         return assignedSocialID;
     }
 
-    public void setMedicalRecords(List<MedicalRecord> medicalRecords) {
-        this.medicalRecords = medicalRecords;
-    }   
-
-    public List<MedicalRecord> getMedicalRecords() {
-        return medicalRecords;
+    public void setMedicalRecords(MedicalRecord[] medicalRecordsArray) {
+        this.medicalRecords = new ArrayList<>(Arrays.asList(medicalRecordsArray));
     }
 
-    public void addMedicalRecord(MedicalRecord medicalRecord) {
-        this.medicalRecords.add(medicalRecord);
+    public MedicalRecord[] getMedicalRecords() {
+        return medicalRecords.toArray(new MedicalRecord[0]);
     }
 
-    public void setFamilyConnections(List<FamilyRelation> familyConnections) {
-        this.familyConnections = familyConnections;
+    public void addMedicalRecord(Location location, String description, String dateString) {
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = dateFormat.parse(dateString);
+            String formattedDate = dateFormat.format(date); // Format the date into a String
+            MedicalRecord record = new MedicalRecord(location, description, formattedDate, this);
+            this.medicalRecords.add(record);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }    
+       
+    public void setFamilyConnections(FamilyRelation[] familyConnections) {
+        this.familyConnections = new ArrayList<>(Arrays.asList(familyConnections));
     }
 
-    public List<FamilyRelation> getFamilyConnections() {
-        return familyConnections;
+    public FamilyRelation[] getFamilyConnections() {
+        return familyConnections.toArray(new FamilyRelation[0]);
     }
 
     public void addFamilyConnection(FamilyRelation familyConnection) {
@@ -114,12 +130,12 @@ public class DisasterVictim {
         return entryDate;
     }
 
-    public List<Supply> getPersonalBelongings() {
-        return personalBelongings;
+    public void setPersonalBelongings(Supply[] personalBelongings) {
+        this.personalBelongings = new ArrayList<>(Arrays.asList(personalBelongings));
     }
 
-    public void setPersonalBelongings(List<Supply> personalBelongings) {
-        this.personalBelongings = personalBelongings;
+    public Supply[] getPersonalBelongings() {
+        return personalBelongings.toArray(new Supply[0]);
     }
 
     public void addPersonalBelonging(Supply supply) {

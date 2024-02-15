@@ -1,5 +1,6 @@
 package edu.ucalgary.oop;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -9,12 +10,18 @@ public class MedicalRecord {
     private String dateOfTreatment;
     private DisasterVictim victim;
 
-    public MedicalRecord(Location location, String treatmentDetails, Date dateOfTreatment, DisasterVictim victim) {
+    public MedicalRecord(Location location, String treatmentDetails, String dateOfTreatment, DisasterVictim victim) {
         this.location = location;
         this.treatmentDetails = treatmentDetails;
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        this.dateOfTreatment = sdf.format(dateOfTreatment);
+        this.dateOfTreatment = dateOfTreatment;
         this.victim = victim;
+    }
+
+    public MedicalRecord(Location location, String treatmentDetails, String dateOfTreatment) {
+        this.location = location;
+        this.treatmentDetails = treatmentDetails;
+        this.dateOfTreatment = dateOfTreatment;
+        this.victim = null; 
     }
 
     public String getTreatmentDetails() {
@@ -25,7 +32,7 @@ public class MedicalRecord {
         this.treatmentDetails = treatmentDetails;
     }
 
-public Location getLocation() {
+    public Location getLocation() {
         return location;
     }
 
