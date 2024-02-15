@@ -4,26 +4,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DisasterVictim {
+    private static int nextAssignedSocialID = 0;
     private String firstName;
     private String lastName;
     private String dateOfBirth;
     private String gender;
     private String comments;
-    private String assignedSocialID;
-    private List<MedicalRecord> medicalRecords = new ArrayList<>();
-    private List<FamilyRelation> familyConnections = new ArrayList<>();
+    private int assignedSocialID;
+    private List<MedicalRecord> medicalRecords;
+    private List<FamilyRelation> familyConnections;
     private String entryDate;
-    private List<Supply> personalBelongings = new ArrayList<>();
-    private int counter;
+    private List<Supply> personalBelongings;
+    private static int counter;
 
-    public DisasterVictim(String firstName, String lastName, String dateOfBirth, String gender, String entryDate, String assignedSocialID) {
+    public DisasterVictim(String firstName, String entryDate) {
         this.firstName = firstName;
-        this.lastName = lastName;
-        this.dateOfBirth = dateOfBirth;
-        this.gender = gender;
-        this.entryDate = entryDate;
-        this.assignedSocialID = assignedSocialID;
-        this.counter = 0;
+        this.entryDate = validateDateFormat(entryDate); 
+        this.assignedSocialID = ++nextAssignedSocialID;
+        this.medicalRecords = new ArrayList<>();
+        this.familyConnections = new ArrayList<>();
+        this.personalBelongings = new ArrayList<>();
+        counter++;
+    }
+
+    private String validateDateFormat(String date) {
+        if (!date.matches("\\d{4}-\\d{2}-\\d{2}")) {
+            throw new IllegalArgumentException("Date must be in YYYY-MM-DD format.");
+        }
+        return date;
     }
 
     public String getFirstName() {
@@ -34,7 +42,7 @@ public class DisasterVictim {
         this.firstName = firstName;
     }
 
-    public String getLastName() {
+    public String getLastName() {   
         return lastName;
     }
 
@@ -66,7 +74,7 @@ public class DisasterVictim {
         this.comments = comments;
     }
 
-    public String getAssignedSocialID() {
+    public int getAssignedSocialID() {
         return assignedSocialID;
     }
 
@@ -94,6 +102,10 @@ public class DisasterVictim {
         this.familyConnections.add(familyConnection);
     }
 
+    public void removeFamilyConnection(FamilyRelation familyConnection) {
+        this.familyConnections.remove(familyConnection);
+    }
+
     public void setEntryDate(String entryDate) {
         this.entryDate = entryDate;
     }
@@ -113,4 +125,17 @@ public class DisasterVictim {
     public void addPersonalBelonging(Supply supply) {
         this.personalBelongings.add(supply);
     }
+
+    public void removePersonalBelonging(Supply supply) {
+        this.personalBelongings.remove(supply);
+    }
+
+    public static int getCounter() {
+        return counter;
+    }
+
+    public static void setCounter(int value) {
+        counter = value;
+    }
 }
+

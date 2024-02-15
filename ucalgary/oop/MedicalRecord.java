@@ -1,16 +1,19 @@
 package edu.ucalgary.oop;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class MedicalRecord {
     private Location location;
     private String treatmentDetails;
     private String dateOfTreatment;
+    private DisasterVictim victim;
 
     public MedicalRecord(Location location, String treatmentDetails, Date dateOfTreatment, DisasterVictim victim) {
         this.location = location;
         this.treatmentDetails = treatmentDetails;
-        this.dateOfTreatment = dateOfTreatment;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        this.dateOfTreatment = sdf.format(dateOfTreatment);
         this.victim = victim;
     }
 
