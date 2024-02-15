@@ -11,9 +11,9 @@ public class MedicalRecord {
     private DisasterVictim victim;
 
     public MedicalRecord(Location location, String treatmentDetails, String dateOfTreatment, DisasterVictim victim) {
-        this.location = location;
-        this.treatmentDetails = treatmentDetails;
-        this.dateOfTreatment = dateOfTreatment;
+        setLocation(location); // Validates and sets location
+        setTreatmentDetails(treatmentDetails); // Validates and sets treatment details
+        setDateOfTreatment(dateOfTreatment); // Already validates date format
         this.victim = victim;
     }
 
@@ -29,6 +29,9 @@ public class MedicalRecord {
     }
 
     public void setTreatmentDetails(String treatmentDetails) {
+        if (treatmentDetails == null || treatmentDetails.trim().isEmpty()) {
+            throw new IllegalArgumentException("Treatment details cannot be null or empty.");
+        }
         this.treatmentDetails = treatmentDetails;
     }
 
@@ -37,6 +40,9 @@ public class MedicalRecord {
     }
 
     public void setLocation(Location location) {
+        if (location == null) {
+            throw new IllegalArgumentException("Location cannot be null.");
+        }
         this.location = location;
     }
 
