@@ -47,18 +47,18 @@ public class DisasterVictim {
     }
 
     public void setFirstName(String firstName) {
-        if (firstName == null || firstName.trim().isEmpty()) {
-            throw new IllegalArgumentException("First name cannot be null or empty.");
+        if (firstName == null || !firstName.matches("[a-zA-Z\\s]+")) {
+            throw new IllegalArgumentException("First name cannot be null and must contain only letters.");
         }
         this.firstName = firstName;
     }
     
     public void setLastName(String lastName) {
-        if (lastName == null || lastName.trim().isEmpty()) {
-            throw new IllegalArgumentException("Last name cannot be null or empty.");
+        if (lastName == null || !lastName.matches("[a-zA-Z\\s]+")) {
+            throw new IllegalArgumentException("Last name cannot be null and must contain only letters.");
         }
         this.lastName = lastName;
-    }
+    }    
     
 
     public String getDateOfBirth() {
@@ -78,24 +78,45 @@ public class DisasterVictim {
     }
 
     public void setGender(String gender) {
+        if (gender == null || !(gender.equalsIgnoreCase("male") || gender.equalsIgnoreCase("female"))) {
+            throw new IllegalArgumentException("Error");
+        }
         this.gender = gender;
-    }
+    }    
 
     public String getComments() {
         return comments;
     }
 
     public void setComments(String comments) {
+        if (comments == null) {
+            throw new IllegalArgumentException("Comments cannot be null. Use 'No comments' if necessary.");
+        }
         this.comments = comments;
-    }
+    }    
+
+    public void setAssignedSocialID(int id) {
+        if (id <= 0) {
+            throw new IllegalArgumentException("Assigned Social ID must be positive.");
+        }
+        this.assignedSocialID = id;
+    }    
 
     public int getAssignedSocialID() {
         return assignedSocialID;
     }
 
     public void setMedicalRecords(MedicalRecord[] medicalRecordsArray) {
+        if (medicalRecordsArray == null) {
+            throw new IllegalArgumentException("Medical records array cannot be null.");
+        }
+        for (MedicalRecord record : medicalRecordsArray) {
+            if (record == null) {
+                throw new IllegalArgumentException("Individual medical record in the array cannot be null.");
+            }
+        }
         this.medicalRecords = new ArrayList<>(Arrays.asList(medicalRecordsArray));
-    }
+    }    
 
     public MedicalRecord[] getMedicalRecords() {
         return medicalRecords.toArray(new MedicalRecord[0]);
@@ -114,42 +135,74 @@ public class DisasterVictim {
     }    
        
     public void setFamilyConnections(FamilyRelation[] familyConnections) {
+        if (familyConnections == null) {
+            throw new IllegalArgumentException("Family connections cannot be null.");
+        }
+        for (FamilyRelation relation : familyConnections) {
+            if (relation == null) {
+                throw new IllegalArgumentException("Family relation cannot be null.");
+            }
+        }
         this.familyConnections = new ArrayList<>(Arrays.asList(familyConnections));
-    }
+    }    
 
     public FamilyRelation[] getFamilyConnections() {
         return familyConnections.toArray(new FamilyRelation[0]);
     }
 
     public void addFamilyConnection(FamilyRelation familyConnection) {
+        if (familyConnection == null) {
+            throw new IllegalArgumentException("Family connection cannot be null.");
+        }
         this.familyConnections.add(familyConnection);
     }
-
+    
     public void removeFamilyConnection(FamilyRelation familyConnection) {
+        if (familyConnection == null) {
+            throw new IllegalArgumentException("Family connection cannot be null.");
+        }
         this.familyConnections.remove(familyConnection);
     }
+    
 
     public void setEntryDate(String entryDate) {
+        if (!entryDate.matches("\\d{4}-\\d{2}-\\d{2}")) {
+            throw new IllegalArgumentException("Entry date must be in YYYY-MM-DD format.");
+        }
         this.entryDate = entryDate;
-    }
+    }    
 
     public String getEntryDate() {
         return entryDate;
     }
 
     public void setPersonalBelongings(Supply[] personalBelongings) {
+        if (personalBelongings == null) {
+            throw new IllegalArgumentException("Personal belongings array cannot be null.");
+        }
+        for (Supply supply : personalBelongings) {
+            if (supply == null) {
+                throw new IllegalArgumentException("Individual supply in the array cannot be null.");
+            }
+        }
         this.personalBelongings = new ArrayList<>(Arrays.asList(personalBelongings));
-    }
+    }    
 
     public Supply[] getPersonalBelongings() {
         return personalBelongings.toArray(new Supply[0]);
     }
 
     public void addPersonalBelonging(Supply supply) {
+        if (supply == null) {
+            throw new IllegalArgumentException("Supply cannot be null.");
+        }
         this.personalBelongings.add(supply);
     }
 
     public void removePersonalBelonging(Supply supply) {
+        if (supply == null) {
+            throw new IllegalArgumentException("Supply cannot be null.");
+        }
         this.personalBelongings.remove(supply);
     }
 
