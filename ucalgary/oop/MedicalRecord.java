@@ -45,7 +45,11 @@ public class MedicalRecord {
     }
 
     public void setDateOfTreatment(String dateOfTreatment) {
+        if (!dateOfTreatment.matches("\\d{4}-\\d{2}-\\d{2}")) {
+            throw new IllegalArgumentException("Date of treatment must be in YYYY-MM-DD format.");
+        }
         this.dateOfTreatment = dateOfTreatment;
     }
+    
 
 }
