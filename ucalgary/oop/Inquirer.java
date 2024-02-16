@@ -3,7 +3,7 @@ package edu.ucalgary.oop;
 public class Inquirer {
     private String FIRST_NAME;
     private String LAST_NAME;
-    private String INFO;	
+    private String INFO;    
     private String SERVICES_PHONE;
 
     // Constructor to set all attributes at the time of object creation
@@ -12,7 +12,6 @@ public class Inquirer {
         this.LAST_NAME = LAST_NAME;
         this.INFO = INFO;
         this.SERVICES_PHONE = SERVICES_PHONE;
-
     }
 
     // Getter methods
@@ -30,5 +29,9 @@ public class Inquirer {
 
     public String getServicesPhone() {
         return SERVICES_PHONE;
+    }
+
+    public String getServicesPhoneNum() {
+        return getServicesPhone();
     }
 }
