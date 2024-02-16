@@ -53,6 +53,7 @@ public class DisasterVictim {
         this.firstName = firstName;
     }
     
+    
     public void setLastName(String lastName) {
         if (lastName == null || !lastName.matches("[a-zA-Z\\s]+")) {
             throw new IllegalArgumentException("Last name cannot be null and must contain only letters.");
