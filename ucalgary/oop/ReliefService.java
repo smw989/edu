@@ -78,13 +78,11 @@ public class ReliefService {
 
     // Log details
     public String getLogDetails() {
-        StringBuilder logDetails = new StringBuilder();
-        logDetails.append("Inquirer: ").append(inquirer.getFirstName()).append(", ");
-        logDetails.append("Missing Person: ").append(missingPerson.getFirstName()).append(missingPerson.getLastName()).append(", ");
-        logDetails.append("Date of Inquiry: ").append(dateOfInquiry).append(", ");
-        logDetails.append("Info Provided: ").append(infoProvided).append(", ");
-        logDetails.append("Last Known Location: ").append(lastKnownLocation.getName());
-        return logDetails.toString();
+        return "Inquirer: " + inquirer.getFirstName() +
+                ", Missing Person: " + missingPerson.getFirstName() +
+                ", Date of Inquiry: " + dateOfInquiry + 
+                ", Info Provided: " + infoProvided + 
+                ", Last Known Location: " + lastKnownLocation.getName();
     }
 
     /*public void printLogDetails() {
