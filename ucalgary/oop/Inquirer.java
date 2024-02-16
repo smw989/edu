@@ -1,37 +1,34 @@
 package edu.ucalgary.oop;
 
 public class Inquirer {
-    private String firstName;
-    private String lastName;
-    private String info;	
-    private String servicesPhone;
+    private String FIRST_NAME;
+    private String LAST_NAME;
+    private String INFO;	
+    private String SERVICES_PHONE;
 
     // Constructor to set all attributes at the time of object creation
-    public Inquirer(String firstName, String lastName, String servicesPhone, String info) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.servicesPhone = servicesPhone;
-        this.info = info;
+    public Inquirer(String FIRST_NAME, String LAST_NAME, String SERVICES_PHONE, String INFO) {
+        this.FIRST_NAME = FIRST_NAME;
+        this.LAST_NAME = LAST_NAME;
+        this.INFO = INFO;
+        this.SERVICES_PHONE = SERVICES_PHONE;
+
     }
 
     // Getter methods
     public String getFirstName() {
-        return firstName;
+        return FIRST_NAME;
     }
 
     public String getLastName() {
-        return lastName;
+        return LAST_NAME;
     }
 
     public String getInfo() {
-        return info;
+        return INFO;
     }
 
     public String getServicesPhone() {
-        return servicesPhone;
+        return SERVICES_PHONE;
     }
 }
-
-
-
-
