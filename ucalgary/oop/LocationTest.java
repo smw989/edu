@@ -9,11 +9,33 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class LocationTest {
     private Location location;
     private DisasterVictim victim;
     private Supply supply;
+
+    // Generic method to add an element to an array
+    public static <T> T[] addElementToArray(T[] array, T element) {
+        T[] newArray = Arrays.copyOf(array, array.length + 1);
+        newArray[array.length] = element;
+        return newArray;
+    }
+
+    // Additional methods to test arrays instead of lists
+    public static <T> boolean arrayContainsAll(T[] array1, T[] array2) {
+        return Arrays.asList(array1).containsAll(Arrays.asList(array2));
+    }
+
+    public static <T> boolean arrayContainsElement(T[] array, T element) {
+        for (T item : array) {
+            if (item.equals(element)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     @Before
     public void setUp() {
@@ -23,9 +45,9 @@ public class LocationTest {
         supply = new Supply("Water Bottle", 10);
     }
 
-    // Helper method to check if a supply is in the list
-    private boolean containsSupply(ArrayList<Supply> supplies, Supply supplyToCheck) {
-        return supplies.contains(supplyToCheck);
+    // Helper method to check if a supply is in the list (Modified for arrays)
+    private boolean containsSupply(Supply[] supplies, Supply supplyToCheck) {
+        return arrayContainsElement(supplies, supplyToCheck);
     }
 
     @Test
@@ -51,23 +73,25 @@ public class LocationTest {
 
     @Test
     public void testAddOccupant() {
+        // Modified to test array instead of list
         location.addOccupant(victim);
-        assertTrue("addOccupant should add a disaster victim to the occupants list", location.getOccupants().contains(victim));
+        assertTrue("addOccupant should add a disaster victim to the occupants list", arrayContainsElement(location.getOccupants(), victim));
     }
 
     @Test
     public void testRemoveOccupant() {
+        // Modified to test array instead of list
         location.addOccupant(victim); // Ensure the victim is added first
         location.removeOccupant(victim);
-        assertFalse("removeOccupant should remove the disaster victim from the occupants list", location.getOccupants().contains(victim));
+        assertFalse("removeOccupant should remove the disaster victim from the occupants list", arrayContainsElement(location.getOccupants(), victim));
     }
 
     @Test
     public void testSetAndGetOccupants() {
-        ArrayList<DisasterVictim> newOccupants = new ArrayList<>();
-        newOccupants.add(victim);
+        DisasterVictim[] newOccupants = {};
+        newOccupants = addElementToArray(newOccupants, victim);
         location.setOccupants(newOccupants);
-        assertTrue("setOccupants should replace the occupants list with the new list", location.getOccupants().containsAll(newOccupants));
+        assertTrue("setOccupants should replace the occupants list with the new list", arrayContainsAll(location.getOccupants(), newOccupants));
     }
 
     @Test
@@ -85,8 +109,8 @@ public class LocationTest {
 
     @Test
     public void testSetAndGetSupplies() {
-        ArrayList<Supply> newSupplies = new ArrayList<>();
-        newSupplies.add(supply);
+        Supply[] newSupplies = {};
+        newSupplies = addElementToArray(newSupplies, supply);
         location.setSupplies(newSupplies);
         assertTrue("setSupplies should replace the supplies list with the new list", containsSupply(location.getSupplies(), supply));
     }

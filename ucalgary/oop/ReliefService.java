@@ -3,20 +3,35 @@ package edu.ucalgary.oop;
 import java.util.Date; // If the date is managed as a Date object. Otherwise, use String for simplicity.
 
 public class ReliefService {
+    /* Member variables */
     private Inquirer inquirer; // Assuming there's an Inquirer class defined elsewhere
     private DisasterVictim missingPerson; // Assuming there's a DisasterVictim class defined elsewhere
     private String dateOfInquiry; // Use java.util.Date for actual date objects if needed
     private String infoProvided;
     private Location lastKnownLocation; // Assuming there's a Location class defined elsewhere
 
+    /* Class methods*/
+
+    // Validate date format
+    private String validateDateFormat(String date) {
+        if (!date.matches("\\d{4}-\\d{2}-\\d{2}")) {
+            throw new IllegalArgumentException("Date must be in YYYY-MM-DD format.");
+        }
+        return date;
+    }
+
+    //Constructor
     public ReliefService(Inquirer inquirer, DisasterVictim missingPerson, String dateOfInquiry, String infoProvided, Location lastKnownLocation) {
         this.inquirer = inquirer;
         this.missingPerson = missingPerson;
-        this.dateOfInquiry = dateOfInquiry;
+        this.dateOfInquiry = validateDateFormat(dateOfInquiry);
         this.infoProvided = infoProvided;
         this.lastKnownLocation = lastKnownLocation;
     }
 
+    // Getters and Setters
+
+    // inquirer
     public Inquirer getInquirer() {
         return inquirer;
     }
@@ -25,6 +40,7 @@ public class ReliefService {
         this.inquirer = inquirer;
     }
 
+    // Missing person
     public DisasterVictim getMissingPerson() {
         return missingPerson;
     }
@@ -33,14 +49,16 @@ public class ReliefService {
         this.missingPerson = missingPerson;
     }
 
+    // Date of inquiry
     public String getDateOfInquiry() {
         return dateOfInquiry;
     }
 
     public void setDateOfInquiry(String dateOfInquiry) {
-        this.dateOfInquiry = dateOfInquiry;
+        this.dateOfInquiry = validateDateFormat(dateOfInquiry);
     }
 
+    // Info provided
     public String getInfoProvided() {
         return infoProvided;
     }
@@ -49,6 +67,7 @@ public class ReliefService {
         this.infoProvided = infoProvided;
     }
 
+    // Last known location
     public Location getLastKnownLocation() {
         return lastKnownLocation;
     }
@@ -57,17 +76,18 @@ public class ReliefService {
         this.lastKnownLocation = lastKnownLocation;
     }
 
+    // Log details
+    public String getLogDetails() {
+        StringBuilder logDetails = new StringBuilder();
+        logDetails.append("Inquirer: ").append(inquirer.getFirstName()).append(", ");
+        logDetails.append("Missing Person: ").append(missingPerson.getFirstName()).append(missingPerson.getLastName()).append(", ");
+        logDetails.append("Date of Inquiry: ").append(dateOfInquiry).append(", ");
+        logDetails.append("Info Provided: ").append(infoProvided).append(", ");
+        logDetails.append("Last Known Location: ").append(lastKnownLocation.getName());
+        return logDetails.toString();
+    }
+
     /*public void printLogDetails() {
         System.out.println(getLogDetails());
     }*/
-
-    public String getLogDetails() {
-        StringBuilder logDetails = new StringBuilder();
-        logDetails.append("Inquirer Name: ").append(inquirer.getFirstName()).append(" ").append(inquirer.getLastName()).append("\n");
-        logDetails.append("Missing Person: ").append(missingPerson.getFirstName()).append(" ").append(missingPerson.getLastName()).append("\n");
-        logDetails.append("Date of Inquiry: ").append(dateOfInquiry).append("\n");
-        logDetails.append("Information Provided: ").append(infoProvided).append("\n");
-        logDetails.append("Last Known Location: ").append(lastKnownLocation.getName()).append(", ").append(lastKnownLocation.getAddress());
-        return logDetails.toString();
-    }
 }

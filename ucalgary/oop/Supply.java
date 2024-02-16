@@ -1,33 +1,27 @@
 package edu.ucalgary.oop;
 
 public class Supply {
+    /* Member variables */
     private String type;
     private int quantity;
 
+    /* Class methods */
+
+    // Constructor
     public Supply(String type, int quantity) {
-        setType(type); 
-        setQuantity(quantity);
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        if (type == null || type.trim().isEmpty()) {
-            throw new IllegalArgumentException("Supply type cannot be null or empty.");
-        }
         this.type = type;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        if (quantity < 0) {
-            throw new IllegalArgumentException("Quantity cannot be negative.");
-        }
         this.quantity = quantity;
     }
+
+    // Getters and Setters
+
+    // Type
+    public String getType() { return type; }
+
+    public void setType(String type) { this.type = type; }
+
+    // Quantity
+    public int getQuantity() { return quantity; }
+
+    public void setQuantity(int quantity) { this.quantity = quantity; }
 }

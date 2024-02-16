@@ -1,11 +1,15 @@
 package edu.ucalgary.oop;
 
 public class Inquirer {
+    /* Member variables */
     private String firstName;
     private String lastName;
     private String info;	
     private String servicesPhone;
 
+    /* Class methods*/
+
+    //Constructor
     // Constructor to set all attributes at the time of object creation
     public Inquirer(String firstName, String lastName, String servicesPhone, String info) {
         this.firstName = firstName;
@@ -14,7 +18,7 @@ public class Inquirer {
         this.info = info;
     }
 
-    // Getter methods
+    // Getters
     public String getFirstName() {
         return firstName;
     }
@@ -27,7 +31,7 @@ public class Inquirer {
         return info;
     }
 
-    public String getServicesPhone() {
+    public String getServicesPhoneNum() {
         return servicesPhone;
     }
 }

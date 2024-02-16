@@ -1,94 +1,102 @@
 package edu.ucalgary.oop;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 
 public class Location {
+    /* Member variables */
+
     private String name;
     private String address;
-    private ArrayList<DisasterVictim> occupants = new ArrayList<>();
-    private ArrayList<Supply> supplies = new ArrayList<>();
+    private DisasterVictim[] occupants = {};
+    private Supply[] supplies = {};
 
+    /* Class methods */
+
+    // Generic method to add an element to an array
+    public static <T> T[] addElementToArray(T[] array, T element) {
+        T[] newArray = Arrays.copyOf(array, array.length + 1);
+        newArray[array.length] = element;
+        return newArray;
+    }
+
+    // Generic method to remove an element from an array
+    public static <T> T[] removeElementFromArray(T[] array, T element) {
+        int indexToRemove = -1;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i].equals(element)) {
+                indexToRemove = i;
+                break;
+            }
+        }
+
+        if (indexToRemove != -1) {
+            T[] newArray = Arrays.copyOf(array, array.length - 1);
+            System.arraycopy(array, 0, newArray, 0, indexToRemove);
+            System.arraycopy(array, indexToRemove + 1, newArray, indexToRemove, newArray.length - indexToRemove);
+            return newArray;
+        } else {
+            // If the element is not found, return the original array
+            return array;
+        }
+    }
+
+    // Constructor
     public Location(String name, String address) {
-        setName(name); // Apply validation if needed
-        setAddress(address); // Apply validation if needed
-    }
-
-    // Name getter and setter
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        if (name == null || name.trim().isEmpty()) {
-            throw new IllegalArgumentException("Name cannot be null or empty.");
-        }
         this.name = name;
-    }
-
-    // Address getter and setter
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        if (address == null || address.trim().isEmpty()) {
-            throw new IllegalArgumentException("Address cannot be null or empty.");
-        }
         this.address = address;
+
+        /* Using arrays instead of lists
+        this.occupants = new ArrayList<>();
+        this.supplies = new ArrayList<>(); */
     }
 
-    // Occupants management
+    // Getters and Setters
+
+    // Name
+    public String getName() { return name; }
+
+    public void setName(String name) { this.name = name; }
+
+    // Address
+    public String getAddress() { return address; }
+
+    public void setAddress(String address) { this.address = address; }
+
+    // Occupants
+    public DisasterVictim[] getOccupants() {
+        return occupants;
+    }
+
+    public void setOccupants(DisasterVictim[] occupants) {
+        this.occupants = occupants;
+    }
+
+    // Supplies
+    public Supply[] getSupplies() {
+        return supplies;
+    }
+
+    public void setSupplies(Supply[] supplies) {
+        this.supplies = supplies;
+    }
+
+    // Methods for managing occupants
     public void addOccupant(DisasterVictim occupant) {
-        if (occupant == null) {
-            throw new IllegalArgumentException("Occupant cannot be null.");
-        }
-        this.occupants.add(occupant);
+        occupants = addElementToArray(occupants, occupant);
     }
 
-    public boolean removeOccupant(DisasterVictim occupant) {
-        if (occupant == null) {
-            throw new IllegalArgumentException("Occupant to remove cannot be null.");
-        }
-        return this.occupants.remove(occupant);
+    public void removeOccupant(DisasterVictim occupant) {
+        occupants = removeElementFromArray(occupants, occupant);
     }
 
-    public void setOccupants(List<DisasterVictim> occupants) {
-        if (occupants == null) {
-            throw new IllegalArgumentException("Occupants list cannot be null.");
-        }
-        // Ensures deep copy if needed, or directly assign after validation
-        this.occupants = new ArrayList<>(occupants);
-    }
-
-    public List<DisasterVictim> getOccupants() {
-    return Collections.unmodifiableList(this.occupants);
-    }
-
-    // Supplies management
+    // Methods for managing supplies
     public void addSupply(Supply supply) {
-        if (supply == null) {
-            throw new IllegalArgumentException("Supply cannot be null.");
-        }
-        this.supplies.add(supply);
+        supplies = addElementToArray(supplies, supply);
     }
 
-    public boolean removeSupply(Supply supply) {
-        if (supply == null) {
-            throw new IllegalArgumentException("Supply to remove cannot be null.");
-        }
-        return this.supplies.remove(supply);
-    }
-
-    public ArrayList<Supply> getSupplies() {
-        return new ArrayList<>(this.supplies);
-    }
-
-    public void setSupplies(List<Supply> supplies) {
-        if (supplies == null) {
-            throw new IllegalArgumentException("Supplies list cannot be null.");
-        }
-        this.supplies = new ArrayList<>(supplies);
+    public void removeSupply(Supply supply) {
+        supplies = removeElementFromArray(supplies, supply);
     }
 }

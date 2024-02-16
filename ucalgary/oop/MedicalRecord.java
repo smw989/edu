@@ -1,37 +1,43 @@
 package edu.ucalgary.oop;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class MedicalRecord {
+    /* Member variables */
+
     private Location location;
     private String treatmentDetails;
     private String dateOfTreatment;
-    private DisasterVictim victim;
 
-    public MedicalRecord(Location location, String treatmentDetails, String dateOfTreatment, DisasterVictim victim) {
-        setLocation(location); // Validates and sets location
-        setTreatmentDetails(treatmentDetails); // Validates and sets treatment details
-        setDateOfTreatment(dateOfTreatment); // Already validates date format
-        this.victim = victim;
+    // Not in UML diagram for this class
+    //private DisasterVictim victim;
+
+    /* Class Methods */
+
+    // Validate date format
+    private String validateDateFormat(String date) {
+        if (!date.matches("\\d{4}-\\d{2}-\\d{2}")) {
+            throw new IllegalArgumentException("Date must be in YYYY-MM-DD format.");
+        }
+        return date;
     }
 
+    // Constructor
+    // UML diagram only requires 3 parameters, not 4
     public MedicalRecord(Location location, String treatmentDetails, String dateOfTreatment) {
         this.location = location;
         this.treatmentDetails = treatmentDetails;
-        this.dateOfTreatment = dateOfTreatment;
-        this.victim = null; 
+        this.dateOfTreatment = validateDateFormat(dateOfTreatment);
+        //this.victim = victim; Not included in UML diagram
     }
 
+    // Getters
     public String getTreatmentDetails() {
         return treatmentDetails;
     }
 
     public void setTreatmentDetails(String treatmentDetails) {
-        if (treatmentDetails == null || treatmentDetails.trim().isEmpty()) {
-            throw new IllegalArgumentException("Treatment details cannot be null or empty.");
-        }
         this.treatmentDetails = treatmentDetails;
     }
 
@@ -40,9 +46,6 @@ public class MedicalRecord {
     }
 
     public void setLocation(Location location) {
-        if (location == null) {
-            throw new IllegalArgumentException("Location cannot be null.");
-        }
         this.location = location;
     }
 
@@ -50,12 +53,9 @@ public class MedicalRecord {
         return dateOfTreatment;
     }
 
+    // Setters
     public void setDateOfTreatment(String dateOfTreatment) {
-        if (!dateOfTreatment.matches("\\d{4}-\\d{2}-\\d{2}")) {
-            throw new IllegalArgumentException("Date of treatment must be in YYYY-MM-DD format.");
-        }
-        this.dateOfTreatment = dateOfTreatment;
+        this.dateOfTreatment = validateDateFormat(dateOfTreatment);
     }
-    
 
 }
