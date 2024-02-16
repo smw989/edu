@@ -122,47 +122,47 @@ public class DisasterVictim {
         return medicalRecords.toArray(new MedicalRecord[0]);
     }
 
-    public void addMedicalRecord(Location location, String description, String dateString) {
-        try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = dateFormat.parse(dateString);
-            String formattedDate = dateFormat.format(date); // Format the date into a String
-            MedicalRecord record = new MedicalRecord(location, description, formattedDate, this);
-            this.medicalRecords.add(record);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }    
-       
-    public void setFamilyConnections(FamilyRelation[] familyConnections) {
-        if (familyConnections == null) {
-            throw new IllegalArgumentException("Family connections cannot be null.");
-        }
-        for (FamilyRelation relation : familyConnections) {
-            if (relation == null) {
-                throw new IllegalArgumentException("Family relation cannot be null.");
+        public void addMedicalRecord(Location location, String description, String dateString) {
+            try {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                Date date = dateFormat.parse(dateString);
+                String formattedDate = dateFormat.format(date); // Format the date into a String
+                MedicalRecord record = new MedicalRecord(location, description, formattedDate, this);
+                this.medicalRecords.add(record);
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
-        }
-        this.familyConnections = new ArrayList<>(Arrays.asList(familyConnections));
-    }    
+        }    
+        
+        public void setFamilyConnections(FamilyRelation[] familyConnections) {
+            if (familyConnections == null) {
+                throw new IllegalArgumentException("Family connections cannot be null.");
+            }
+            for (FamilyRelation relation : familyConnections) {
+                if (relation == null) {
+                    throw new IllegalArgumentException("Family relation cannot be null.");
+                }
+            }
+            this.familyConnections = new ArrayList<>(Arrays.asList(familyConnections));
+        }    
 
-    public FamilyRelation[] getFamilyConnections() {
-        return familyConnections.toArray(new FamilyRelation[0]);
-    }
+        public FamilyRelation[] getFamilyConnections() {
+            return familyConnections.toArray(new FamilyRelation[0]);
+        }
 
-    public void addFamilyConnection(FamilyRelation familyConnection) {
-        if (familyConnection == null) {
-            throw new IllegalArgumentException("Family connection cannot be null.");
+        public void addFamilyConnection(FamilyRelation familyConnection) {
+            if (familyConnection == null) {
+                throw new IllegalArgumentException("Family connection cannot be null.");
+            }
+            this.familyConnections.add(familyConnection);
         }
-        this.familyConnections.add(familyConnection);
-    }
-    
-    public void removeFamilyConnection(FamilyRelation familyConnection) {
-        if (familyConnection == null) {
-            throw new IllegalArgumentException("Family connection cannot be null.");
+        
+        public void removeFamilyConnection(FamilyRelation familyConnection) {
+            if (familyConnection == null) {
+                throw new IllegalArgumentException("Family connection cannot be null.");
+            }
+            this.familyConnections.remove(familyConnection);
         }
-        this.familyConnections.remove(familyConnection);
-    }
     
 
     public void setEntryDate(String entryDate) {

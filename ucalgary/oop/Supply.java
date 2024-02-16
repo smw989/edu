@@ -5,8 +5,8 @@ public class Supply {
     private int quantity;
 
     public Supply(String type, int quantity) {
-        this.type = type;
-        this.quantity = quantity;
+        setType(type); 
+        setQuantity(quantity);
     }
 
     public String getType() {
@@ -14,6 +14,9 @@ public class Supply {
     }
 
     public void setType(String type) {
+        if (type == null || type.trim().isEmpty()) {
+            throw new IllegalArgumentException("Supply type cannot be null or empty.");
+        }
         this.type = type;
     }
 
@@ -22,6 +25,9 @@ public class Supply {
     }
 
     public void setQuantity(int quantity) {
+        if (quantity < 0) {
+            throw new IllegalArgumentException("Quantity cannot be negative.");
+        }
         this.quantity = quantity;
     }
 }
